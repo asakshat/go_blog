@@ -16,6 +16,13 @@ Add the following environment variables to the `.env` file:
 ```plaintext
 SECRET_KEY="your-secret-code"
 DATABASE_URL="Your-DB-URL"
+```
+ Example :- 
+```bash
+DATABASE_URL=postgres://myuser:mypassword@localhost:5432/mydatabase
+```
+
+
 
 
 
