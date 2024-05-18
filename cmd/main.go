@@ -29,6 +29,9 @@ func main() {
 		AllowOrigins:     "http://localhost:3000",
 	}))
 	db.Connect()
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.SendString("Hello, World!")
+	})
 	routes.Auth(app)
 	routes.Blog(app)
 	routes.Likes(app)
