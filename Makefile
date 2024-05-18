@@ -1,0 +1,2 @@
+postgreinit:
+	docker
