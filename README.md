@@ -47,6 +47,8 @@ You can also use Docker Desktop to run/stop containers without the CLI.
 
 ## API Routes
 
+- URL = ```https://goblogpost-867025111c75.herokuapp.com```
+
 ### Authentication Routes
 
 | **Description**          | **Route**              | **Method** | **Controller**       |
