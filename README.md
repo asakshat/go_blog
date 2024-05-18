@@ -6,7 +6,7 @@ If you are just looking for routes click here [API Routes](#api-routes)
 ### Prerequisites
 - Ensure Docker is installed on your machine. You can download Docker from [here](https://www.docker.com/products/docker-desktop).
 
-### Steps to Run the Application
+### Steps to Run the Application locally
 
 #### Step 1: Create a `.env` File
 In the root directory of your project, create a `.env` file.
