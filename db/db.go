@@ -22,7 +22,7 @@ func Connect() (*gorm.DB, error) {
 		log.Fatal("Error loading .env file")
 	}
 
-	dbURL := os.Getenv("DB_URL")
+	dbURL := os.Getenv("DATABASE_URL")
 
 	db, err := gorm.Open(postgres.Open(dbURL), config)
 	if err != nil {
