@@ -15,8 +15,8 @@ In the root directory of your project, create a `.env` file.
 Add the following environment variables to the `.env` file:
 
 ```plaintext
-SECRET_KEY="your-secret-code"
-DATABASE_URL="Your-DB-URL"
+SECRET_KEY="YOUR-SECRET-CODE"
+DATABASE_URL="YOUR-DB-URL"
 ```
  Example :- 
 <br>
