@@ -3,6 +3,7 @@ package models
 import "gorm.io/gorm"
 
 type PostDetails struct {
+	Username     string
 	Post         Post
 	LikeCount    int64
 	CommentCount int64
@@ -27,7 +28,7 @@ func GetCommentCount(db *gorm.DB, postID uint) (int64, error) {
 
 func GetAllPostDetails(db *gorm.DB) ([]PostDetails, error) {
 	var posts []Post
-	err := db.Find(&posts).Error
+	err := db.Preload("User").Find(&posts).Error
 	if err != nil {
 		return nil, err
 	}
@@ -45,6 +46,7 @@ func GetAllPostDetails(db *gorm.DB) ([]PostDetails, error) {
 		}
 
 		postDetails = append(postDetails, PostDetails{
+			Username:     post.User.Username,
 			Post:         post,
 			LikeCount:    likeCount,
 			CommentCount: commentCount,
@@ -56,7 +58,7 @@ func GetAllPostDetails(db *gorm.DB) ([]PostDetails, error) {
 
 func GetPostWithId(db *gorm.DB, postID uint) (PostDetails, error) {
 	var post Post
-	err := db.Where("post_id = ?", postID).First(&post).Error
+	err := db.Preload("User").Where("post_id = ?", postID).First(&post).Error
 	if err != nil {
 		return PostDetails{}, err
 	}
@@ -72,6 +74,7 @@ func GetPostWithId(db *gorm.DB, postID uint) (PostDetails, error) {
 	}
 
 	postDetails := PostDetails{
+		Username:     post.User.Username,
 		Post:         post,
 		LikeCount:    likeCount,
 		CommentCount: commentCount,

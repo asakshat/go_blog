@@ -13,8 +13,10 @@ type User struct {
 }
 
 type Post struct {
-	PostID          uint      `gorm:"primarykey" json:"post_id"`
-	UserID          uint      `gorm:"index;not null" json:"user_id"` // FK
+	PostID uint `gorm:"primarykey" json:"post_id"`
+	UserID uint `gorm:"index;not null" json:"user_id"` // FK
+	User   User `gorm:"foreignKey:UserID" json:"-"`
+
 	PostTitle       string    `json:"post_title"`
 	PostDescription string    `json:"post_description"`
 	PostContent     string    `json:"post_content"`
