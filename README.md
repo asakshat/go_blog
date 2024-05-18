@@ -49,34 +49,34 @@ You can also use Docker Desktop to run/stop containers without the CLI.
 
 ### Authentication Routes
 
-| **Route**              | **Method** | **Controller**       | **Description**          |
-|------------------------|------------|----------------------|--------------------------|
-| `/api/user/signup`     | `POST`     | `controllers.Signup` | Signup                   |
-| `/api/user/login`      | `POST`     | `controllers.Login`  | Login with Cookies       |
-| `/api/user/logout`     | `POST`     | `controllers.Logout` | Logout and remove cookies|
-| `/api/user`            | `GET`      | `controllers.User`   | Get logged in user       |
+| **Description**          | **Route**              | **Method** | **Controller**       |
+|--------------------------|------------------------|------------|----------------------|
+| Signup                   | `/api/user/signup`     | `POST`     | `controllers.Signup` |
+| Login with Cookies       | `/api/user/login`      | `POST`     | `controllers.Login`  |
+| Logout and remove cookies| `/api/user/logout`     | `POST`     | `controllers.Logout` |
+| Get logged in user       | `/api/user`            | `GET`      | `controllers.User`   |
 
 ### Blog Routes
 
-| **Route**                           | **Method** | **Controller**                   | **Middleware**           | **Description**            |
-|-------------------------------------|------------|----------------------------------|--------------------------|----------------------------|
-| `/api/blog/all`                     | `GET`      | `controllers.GetAllPosts`        |                          | Get all blog posts         |
-| `/api/blog/:post_id`                | `GET`      | `controllers.GetPostWithIdHandler`|                          | Get blog post by ID        |
-| `/api/blog/:user_id`                | `POST`     | `controllers.CreateBlog`         | `middlewares.Authenticate`| Create blog post           |
-| `/api/blog/edit/:user_id/:post_id`  | `PUT`      | `controllers.EditPost`           | `middlewares.Authenticate`| Edit blog post             |
-| `/api/blog/delete/:user_id/:post_id`| `DELETE`   | `controllers.DeletePost`         | `middlewares.Authenticate`| Delete blog post           |
+| **Description**            | **Route**                           | **Method** | **Controller**                   |
+|----------------------------|-------------------------------------|------------|----------------------------------|
+| Get all blog posts         | `/api/blog/all`                     | `GET`      | `controllers.GetAllPosts`        |
+| Get blog post by ID        | `/api/blog/:post_id`                | `GET`      | `controllers.GetPostWithIdHandler`|
+| Create blog post           | `/api/blog/:user_id`                | `POST`     | `controllers.CreateBlog`         |
+| Edit blog post             | `/api/blog/edit/:user_id/:post_id`  | `PUT`      | `controllers.EditPost`           |
+| Delete blog post           | `/api/blog/delete/:user_id/:post_id`| `DELETE`   | `controllers.DeletePost`         |
 
 ### Like Routes
 
-| **Route**                              | **Method** | **Controller**          | **Middleware**           | **Description**       |
-|----------------------------------------|------------|-------------------------|--------------------------|-----------------------|
-| `/api/blog/like/:user_id/:post_id`     | `POST`     | `controllers.LikePost`  | `middlewares.Authenticate`| Like a blog post      |
-| `/api/blog/unlike/:user_id/:post_id`   | `POST`     | `controllers.UnlikePost`| `middlewares.Authenticate`| Unlike a blog post    |
+| **Description**       | **Route**                              | **Method** | **Controller**          |
+|-----------------------|----------------------------------------|------------|-------------------------|
+| Like a blog post      | `/api/blog/like/:user_id/:post_id`     | `POST`     | `controllers.LikePost`  |
+| Unlike a blog post    | `/api/blog/unlike/:user_id/:post_id`   | `POST`     | `controllers.UnlikePost`|
 
 ### Comment Routes
 
-| **Route**                                    | **Method** | **Controller**             | **Middleware**           | **Description**         |
-|----------------------------------------------|------------|----------------------------|--------------------------|-------------------------|
-| `/api/blog/comment/post/:user_id/:post_id`   | `POST`     | `controllers.PostComment`  | `middlewares.Authenticate`| Post a comment on a blog|
-| `/api/blog/comment/edit/:user_id/:comment_id`| `PUT`      | `controllers.EditComment`  | `middlewares.Authenticate`| Edit a comment          |
-| `/api/blog/comment/delete/:user_id/:comment_id`| `DELETE`   | `controllers.DeleteComment`| `middlewares.Authenticate`| Delete a comment        |
+| **Description**         | **Route**                                    | **Method** | **Controller**             |
+|-------------------------|----------------------------------------------|------------|----------------------------|
+| Post a comment on a blog| `/api/blog/comment/post/:user_id/:post_id`   | `POST`     | `controllers.PostComment`  |
+| Edit a comment          | `/api/blog/comment/edit/:user_id/:comment_id`| `PUT`      | `controllers.EditComment`  |
+| Delete a comment        | `/api/blog/comment/delete/:user_id/:comment_id`| `DELETE`   | `controllers.DeleteComment`|
