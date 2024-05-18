@@ -13,9 +13,9 @@ import (
 
 func main() {
 	godotenv.Load(".env")
-	dbURL := os.Getenv("DB_URL")
+	dbURL := os.Getenv("DATABASE_URL")
 	if dbURL == "" {
-		log.Fatal("DB_URL must be set")
+		log.Fatal("DATABASE_URL must be set")
 	}
 
 	secretKey := os.Getenv("SECRET_KEY")
