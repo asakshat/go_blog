@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"os"
 
 	"github.com/asakshat/go_blog/db"
 	"github.com/asakshat/go_blog/internal/routes"
@@ -13,15 +12,6 @@ import (
 
 func main() {
 	godotenv.Load(".env")
-	dbURL := os.Getenv("DATABASE_URL")
-	if dbURL == "" {
-		log.Fatal("DATABASE_URL must be set")
-	}
-
-	secretKey := os.Getenv("SECRET_KEY")
-	if secretKey == "" {
-		log.Fatal("SECRET_KEY must be set")
-	}
 
 	app := fiber.New()
 	app.Use(cors.New(cors.Config{
