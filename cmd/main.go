@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/asakshat/go_blog/db"
 	"github.com/asakshat/go_blog/internal/routes"
@@ -25,8 +26,10 @@ func main() {
 	routes.Likes(app)
 	routes.Comments(app)
 
-	err := app.Listen(":3000")
-	if err != nil {
-		log.Fatalf("Failed to start server: %v", err)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "3000"
 	}
+	log.Fatal(app.Listen(":" + port))
+
 }
