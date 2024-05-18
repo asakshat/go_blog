@@ -1,10 +1,28 @@
-# Blog web app in GO (CRUD)
+# Blog Web App in GO (CRUD)
+
+## Instructions to Build and Run the Application
+
+### Prerequisites
+- Ensure Docker is installed on your machine. You can download Docker from [here](https://www.docker.com/products/docker-desktop).
+
+### Steps to Run the Application
+
+#### Step 1: Create a `.env` File
+In the root directory of your project, create a `.env` file.
+
+#### Step 2: Set Up Environment Variables
+Add the following environment variables to the `.env` file:
+
+```plaintext
+SECRET_KEY="your-secret-code"
+DATABASE_URL="Your-DB-URL"
 
 
 
-# API Routes
 
-## Authentication Routes
+## API Routes
+
+### Authentication Routes
 
 | **Route**              | **Method** | **Controller**       | **Description**          |
 |------------------------|------------|----------------------|--------------------------|
@@ -13,7 +31,7 @@
 | `/api/user/logout`     | `POST`     | `controllers.Logout` | Logout and remove cookies|
 | `/api/user`            | `GET`      | `controllers.User`   | Get logged in user       |
 
-## Blog Routes
+### Blog Routes
 
 | **Route**                           | **Method** | **Controller**                   | **Middleware**           | **Description**            |
 |-------------------------------------|------------|----------------------------------|--------------------------|----------------------------|
@@ -23,14 +41,14 @@
 | `/api/blog/edit/:user_id/:post_id`  | `PUT`      | `controllers.EditPost`           | `middlewares.Authenticate`| Edit blog post             |
 | `/api/blog/delete/:user_id/:post_id`| `DELETE`   | `controllers.DeletePost`         | `middlewares.Authenticate`| Delete blog post           |
 
-## Like Routes
+### Like Routes
 
 | **Route**                              | **Method** | **Controller**          | **Middleware**           | **Description**       |
 |----------------------------------------|------------|-------------------------|--------------------------|-----------------------|
 | `/api/blog/like/:user_id/:post_id`     | `POST`     | `controllers.LikePost`  | `middlewares.Authenticate`| Like a blog post      |
 | `/api/blog/unlike/:user_id/:post_id`   | `POST`     | `controllers.UnlikePost`| `middlewares.Authenticate`| Unlike a blog post    |
 
-## Comment Routes
+### Comment Routes
 
 | **Route**                                    | **Method** | **Controller**             | **Middleware**           | **Description**         |
 |----------------------------------------------|------------|----------------------------|--------------------------|-------------------------|
