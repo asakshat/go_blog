@@ -18,13 +18,30 @@ SECRET_KEY="your-secret-code"
 DATABASE_URL="Your-DB-URL"
 ```
  Example :- 
+<br>
+- DATABASE_URL according to **docker-compose.yml** file.
+
 ```bash
 DATABASE_URL=postgres://myuser:mypassword@localhost:5432/mydatabase
 ```
+```bash
+SECRET_KEY=asdasd12asd1
+```
+#### Step 3: Set Up Environment Variables
+Make sure you are in the root directory of the project folder.
 
+Now run : <br>
 
+```bash
+docker compose up
+```
+Now docker should create an image and run it as a container .
 
-
+To stop you the container you can run: <br>
+```bash
+docker compose down
+```
+You can also use Docker Desktop to run/stop containers without the CLI.
 
 
 ## API Routes
