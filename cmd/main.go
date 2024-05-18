@@ -19,7 +19,7 @@ func main() {
 	}))
 	db.Connect()
 	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, World!")
+		return c.SendString("HELLO, TEST GOLANG BLOG. IF THIS WORKS BACKEND WORKS!")
 	})
 	routes.Auth(app)
 	routes.Blog(app)
