@@ -17,9 +17,11 @@ func Connect() (*gorm.DB, error) {
 	config := &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
 	}
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
+	if os.Getenv("PORT") == "" {
+		err := godotenv.Load()
+		if err != nil {
+			log.Fatal("Error loading .env file")
+		}
 	}
 
 	dbURL := os.Getenv("DATABASE_URL")

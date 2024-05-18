@@ -7,11 +7,9 @@ import (
 	"github.com/asakshat/go_blog/internal/routes"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/joho/godotenv"
 )
 
 func main() {
-	godotenv.Load(".env")
 
 	app := fiber.New()
 	app.Use(cors.New(cors.Config{
