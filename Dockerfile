@@ -1,39 +1,38 @@
-# Start from the latest Golang base image
+# start with latest goland docker image
 FROM golang:latest AS builder
 
-# Add Maintainer Info
-LABEL maintainer="Your Name <youremail@example.com>"
+LABEL maintainer="Sakshat <asakshat453@gmail.com>"
 
-# Set the Current Working Directory inside the container
+# current app dir
 WORKDIR /app
 
-# Copy go mod and sum files
+# cp go mod and sum files
 COPY go.mod go.sum ./
 
-# Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
+# download dependencies
 RUN go mod download
 
-# Copy the source from the current directory to the Working Directory inside the container
+# copy source to the container 
 COPY . .
 
 # Build the Go app
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main ./cmd/main.go
 
-# Start a new stage from scratch
+# start new contianer with postgres alpine image
 FROM alpine:latest  
 
 RUN apk --no-cache add ca-certificates
 
 WORKDIR /root/
 
-# Copy the Pre-built binary file from the previous stage
+# copy the compiled binary from the first container (to reduce size)
 COPY --from=builder /app/main .
 
-# Copy the .env file
+# copy the .env file
 COPY --from=builder /app/.env .
 
-# Expose port 8080 to the outside world
+# open port 8080
 EXPOSE 8080
 
-# Command to run the executable
+# run the compiled go binary
 CMD ["./main"] 
