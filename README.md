@@ -1,4 +1,5 @@
 # Blog Web App in GO (CRUD)
+If you are just looking for routes click here [API Routes](#api-routes)
 
 ## Instructions to Build and Run the Application
 
