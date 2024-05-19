@@ -7,12 +7,12 @@ import (
 )
 
 func LikePost(c *fiber.Ctx) error {
-	userID, err := parseUserID(c)
+	userID, err := parseID(c, "user_id")
 	if err != nil {
 		return handleError(c, fiber.StatusBadRequest, "Cannot parse user_id")
 	}
 
-	postID, err := parsePostID(c)
+	postID, err := parseID(c, "post_id")
 	if err != nil {
 		return handleError(c, fiber.StatusBadRequest, "Cannot parse post_id")
 	}
@@ -44,12 +44,12 @@ func LikePost(c *fiber.Ctx) error {
 }
 
 func UnlikePost(c *fiber.Ctx) error {
-	userID, err := parseUserID(c)
+	userID, err := parseID(c, "user_id")
 	if err != nil {
 		return handleError(c, fiber.StatusBadRequest, "Cannot parse user_id")
 	}
 
-	postID, err := parsePostID(c)
+	postID, err := parseID(c, "post_id")
 	if err != nil {
 		return handleError(c, fiber.StatusBadRequest, "Cannot parse post_id")
 	}

@@ -23,6 +23,7 @@ type Post struct {
 	CreatedAt       time.Time `gorm:"autoCreateTime" json:"created_at"`
 	Likes           []Like    `gorm:"foreignKey:PostID" json:"-"` // 1 to many (one post can have many likes)
 	Comments        []Comment `gorm:"foreignKey:PostID" json:"-"` // 1 to many (one post can have many comments)
+	ImageURL        string    `json:"image_url"`
 }
 
 type Like struct {

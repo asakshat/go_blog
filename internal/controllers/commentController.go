@@ -12,7 +12,7 @@ func PostComment(c *fiber.Ctx) error {
 	if err := c.BodyParser(&data); err != nil {
 		return handleError(c, fiber.StatusBadRequest, "Could not parse request body: "+err.Error())
 	}
-	userID, err := parseUserID(c)
+	userID, err := parseID(c, "user_id")
 	if err != nil {
 		return handleError(c, fiber.StatusBadRequest, "Invalid user ID: "+err.Error())
 	}
@@ -22,7 +22,7 @@ func PostComment(c *fiber.Ctx) error {
 		return handleError(c, fiber.StatusNotFound, "User not found")
 	}
 
-	postID, err := parsePostID(c)
+	postID, err := parseID(c, "post_id")
 	if err != nil {
 		return handleError(c, fiber.StatusBadRequest, "Invalid post ID: "+err.Error())
 	}
@@ -56,12 +56,12 @@ func EditComment(c *fiber.Ctx) error {
 	if err := c.BodyParser(&data); err != nil {
 		return handleError(c, fiber.StatusBadRequest, "Could not parse request body: "+err.Error())
 	}
-	userId, err := parseUserID(c)
+	userId, err := parseID(c, "user_id")
 	if err != nil {
 		return handleError(c, fiber.StatusBadRequest, "Invalid user ID: "+err.Error())
 	}
 
-	commentID, err := parseCommentID(c)
+	commentID, err := parseID(c, "comment_id")
 	if err != nil {
 		return handleError(c, fiber.StatusBadRequest, "Invalid comment ID: "+err.Error())
 	}
@@ -86,12 +86,12 @@ func EditComment(c *fiber.Ctx) error {
 }
 
 func DeleteComment(c *fiber.Ctx) error {
-	userID, err := parseUserID(c)
+	userID, err := parseID(c, "user_id")
 	if err != nil {
 		return handleError(c, fiber.StatusBadRequest, "Invalid user ID: "+err.Error())
 	}
 
-	commentID, err := parseCommentID(c)
+	commentID, err := parseID(c, "comment_id")
 	if err != nil {
 		return handleError(c, fiber.StatusBadRequest, "Invalid comment ID: "+err.Error())
 	}

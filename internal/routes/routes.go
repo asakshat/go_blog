@@ -21,7 +21,6 @@ func Blog(app *fiber.App) {
 	app.Get("/api/blog/all", controllers.GetAllPosts)
 	app.Get("/api/blog/:post_id", controllers.GetPostWithIdHandler)
 
-	app.Use(middlewares.Authenticate)
 	// Post blog routes
 	app.Post("/api/blog/:user_id", controllers.CreateBlog)
 	app.Put("/api/blog/edit/:user_id/:post_id", controllers.EditPost)
