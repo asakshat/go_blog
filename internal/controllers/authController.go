@@ -61,12 +61,7 @@ func Login(c *fiber.Ctx) error {
 
 	if user.ID == 0 {
 		c.Status(fiber.StatusNotFound)
-		c.Cookie(&fiber.Cookie{
-			Name:     "jwt",
-			Value:    "",
-			Expires:  time.Now().Add(-time.Hour),
-			HTTPOnly: true,
-		})
+
 		return c.JSON(fiber.Map{
 			"message": "User not found",
 		})
