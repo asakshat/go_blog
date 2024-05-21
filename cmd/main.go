@@ -15,7 +15,7 @@ func main() {
 	app := fiber.New()
 	app.Use(cors.New(cors.Config{
 		AllowCredentials: true,
-		AllowOrigins:     "http://localhost:3000,http://localhost:5173",
+		AllowOrigins:     "http://localhost:3000, http://localhost:5173 ,https://comforting-speculoos-51d893.netlify.app",
 	}))
 	db.Connect()
 	app.Get("/", func(c *fiber.Ctx) error {
