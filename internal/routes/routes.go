@@ -13,6 +13,7 @@ func Auth(app *fiber.App) {
 	app.Post("/api/user/login", controllers.Login)   // Login w Cookies
 	app.Post("/api/user/logout", controllers.Logout) // Logout w removing cookies
 
+	app.Use(middlewares.Authenticate)
 	app.Get("/api/user", controllers.User) // get logged in user
 
 }
