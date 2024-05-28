@@ -12,9 +12,7 @@ func Auth(app *fiber.App) {
 	app.Post("/api/user/signup", controllers.Signup) // Signup
 	app.Post("/api/user/login", controllers.Login)   // Login w Cookies
 	app.Post("/api/user/logout", controllers.Logout) // Logout w removing cookies
-
-	app.Use(middlewares.Authenticate)
-	app.Get("/api/user", controllers.User) // get logged in user
+	app.Get("/api/user", controllers.User)           // get logged in user
 
 }
 
@@ -32,12 +30,14 @@ func Blog(app *fiber.App) {
 
 func Likes(app *fiber.App) {
 	app.Use(middlewares.Authenticate)
+
 	app.Post("/api/blog/like/:user_id/:post_id", controllers.LikePost)
 	app.Post("/api/blog/unlike/:user_id/:post_id", controllers.UnlikePost)
 }
 
 func Comments(app *fiber.App) {
 	app.Use(middlewares.Authenticate)
+
 	app.Post("/api/blog/comment/post/:user_id/:post_id", controllers.PostComment)
 	app.Put("/api/blog/comment/edit/:user_id/:comment_id", controllers.EditComment)
 	app.Delete("/api/blog/comment/delete/:user_id/:comment_id", controllers.DeleteComment)

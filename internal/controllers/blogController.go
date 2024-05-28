@@ -189,7 +189,6 @@ func GetPostWithIdHandler(c *fiber.Ctx) error {
 	if err != nil {
 		return handleError(c, fiber.StatusBadRequest, "Cannot parse post_id")
 	}
-
 	postDetails, err := models.GetPostWithId(db.DB, uint(postID))
 	if err != nil {
 		return handleError(c, fiber.StatusInternalServerError, "Error getting post details: "+err.Error())
