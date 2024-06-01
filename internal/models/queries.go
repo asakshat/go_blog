@@ -98,7 +98,7 @@ func GetPostWithId(db *gorm.DB, postID uint) (PostDetails, error) {
 
 func GetAllPostByUserId(db *gorm.DB, userID uint) (PostDetails, error) {
 	var post Post
-	err := db.Preload("User").Where("user_id = ?", userID).Find(&post).Error
+	err := db.Preload("User").Preload("Comments.User").Where("user_id = ?", userID).Find(&post).Error
 	if err != nil {
 		return PostDetails{}, err
 	}
