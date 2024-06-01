@@ -5,6 +5,7 @@ import "gorm.io/gorm"
 type PostDetails struct {
 	Username     string
 	Post         Post
+	Comments     []Comment
 	LikeCount    int64
 	CommentCount int64
 }
@@ -58,7 +59,7 @@ func GetAllPostDetails(db *gorm.DB) ([]PostDetails, error) {
 
 func GetPostWithId(db *gorm.DB, postID uint) (PostDetails, error) {
 	var post Post
-	err := db.Preload("User").Where("post_id = ?", postID).First(&post).Error
+	err := db.Preload("User").Preload("Comments").Where("post_id = ?", postID).First(&post).Error
 	if err != nil {
 		return PostDetails{}, err
 	}
@@ -76,6 +77,7 @@ func GetPostWithId(db *gorm.DB, postID uint) (PostDetails, error) {
 	postDetails := PostDetails{
 		Username:     post.User.Username,
 		Post:         post,
+		Comments:     post.Comments,
 		LikeCount:    likeCount,
 		CommentCount: commentCount,
 	}
