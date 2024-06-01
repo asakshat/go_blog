@@ -64,7 +64,7 @@ You can also use Docker Desktop to run/stop containers without the CLI.
 |----------------------------|-------------------------------------|------------|----------------------------------|
 | Get all blog posts         | `/api/blog/all`                     | `GET`      | `controllers.GetAllPosts`        |
 | Get blog post by ID        | `/api/blog/:post_id`                | `GET`      | `controllers.GetPostWithIdHandler`|
-| Get all blog by User_ID    | `/api/blog/all/:user_id             | `GET`      | `controllers.GetPostWithIdHandler`|
+| Get all blog by User_ID    | `/api/blog/all/:user_id`            | `GET`      | `controllers.GetPostWithIdHandler`|
 | Create blog post           | `/api/blog/:user_id`                | `POST`     | `controllers.CreateBlog`         |
 | Edit blog post             | `/api/blog/edit/:user_id/:post_id`  | `PUT`      | `controllers.EditPost`           |
 | Delete blog post           | `/api/blog/delete/:user_id/:post_id`| `DELETE`   | `controllers.DeletePost`         |
