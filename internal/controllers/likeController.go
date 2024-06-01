@@ -12,6 +12,11 @@ func LikePost(c *fiber.Ctx) error {
 		return handleError(c, fiber.StatusBadRequest, "Cannot parse user_id")
 	}
 
+	var user models.User
+	if err := db.DB.First(&user, userID).Error; err != nil {
+		return handleError(c, fiber.StatusNotFound, "User not found")
+	}
+
 	postID, err := parseID(c, "post_id")
 	if err != nil {
 		return handleError(c, fiber.StatusBadRequest, "Cannot parse post_id")
@@ -47,6 +52,10 @@ func UnlikePost(c *fiber.Ctx) error {
 	userID, err := parseID(c, "user_id")
 	if err != nil {
 		return handleError(c, fiber.StatusBadRequest, "Cannot parse user_id")
+	}
+	var user models.User
+	if err := db.DB.First(&user, userID).Error; err != nil {
+		return handleError(c, fiber.StatusNotFound, "User not found")
 	}
 
 	postID, err := parseID(c, "post_id")
