@@ -96,31 +96,37 @@ func GetPostWithId(db *gorm.DB, postID uint) (PostDetails, error) {
 	return postDetails, nil
 }
 
-func GetAllPostByUserId(db *gorm.DB, userID uint) ([]PostDetails, error) {
-	var posts []Post
-	err := db.Preload("User").Where("user_id = ?", userID).Find(&posts).Error
+func GetAllPostByUserId(db *gorm.DB, userID uint) (PostDetails, error) {
+	var post Post
+	err := db.Preload("User").Where("user_id = ?", userID).Find(&post).Error
 	if err != nil {
-		return nil, err
+		return PostDetails{}, err
 	}
 
-	var postDetails []PostDetails
-	for _, post := range posts {
-		likeCount, err := GetLikeCount(db, post.PostID)
-		if err != nil {
-			return nil, err
-		}
+	likeCount, err := GetLikeCount(db, post.PostID)
+	if err != nil {
+		return PostDetails{}, err
+	}
 
-		commentCount, err := GetCommentCount(db, post.PostID)
-		if err != nil {
-			return nil, err
-		}
+	commentCount, err := GetCommentCount(db, post.PostID)
+	if err != nil {
+		return PostDetails{}, err
+	}
 
-		postDetails = append(postDetails, PostDetails{
-			Username:     post.User.Username,
-			Post:         post,
-			LikeCount:    likeCount,
-			CommentCount: commentCount,
+	var commentDetails []CommentDetails
+	for _, comment := range post.Comments {
+		commentDetails = append(commentDetails, CommentDetails{
+			CommentString:   comment.Comment,
+			CommentUsername: comment.User.Username,
 		})
+	}
+
+	postDetails := PostDetails{
+		Username:     post.User.Username,
+		Post:         post,
+		LikeCount:    likeCount,
+		CommentCount: commentCount,
+		Comments:     commentDetails,
 	}
 
 	return postDetails, nil
