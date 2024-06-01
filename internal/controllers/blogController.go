@@ -184,6 +184,20 @@ func GetAllPosts(c *fiber.Ctx) error {
 	return c.JSON(postDetails)
 }
 
+func GetAllPostByUserId(c *fiber.Ctx) error {
+	userID, err := parseID(c, "user_id")
+	if err != nil {
+		return handleError(c, fiber.StatusBadRequest, "Invalid user ID: "+err.Error())
+	}
+
+	var posts []models.Post
+	if err := db.DB.Where("user_id = ?", userID).Find(&posts).Error; err != nil {
+		return handleError(c, fiber.StatusInternalServerError, "Error getting posts: "+err.Error())
+	}
+
+	return c.JSON(posts)
+}
+
 func GetPostWithIdHandler(c *fiber.Ctx) error {
 	postID, err := parseID(c, "post_id")
 	if err != nil {

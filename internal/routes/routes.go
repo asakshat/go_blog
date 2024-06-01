@@ -19,6 +19,7 @@ func Auth(app *fiber.App) {
 func Blog(app *fiber.App) {
 	app.Get("/api/blog/all", controllers.GetAllPosts)
 	app.Get("/api/blog/:post_id", controllers.GetPostWithIdHandler)
+	app.Get("/api/blog/all/:user_id", controllers.GetAllPostByUserId)
 
 	app.Use(middlewares.Authenticate)
 	// Post blog routes

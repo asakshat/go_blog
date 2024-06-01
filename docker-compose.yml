@@ -6,6 +6,10 @@ services:
       - '8080:8080'
     depends_on:
       - db
+    environment:
+      DATABASE_URL: postgres://myuser:mypassword@db:5432/mydatabase
+      SECRET_KEY: "asd12edasd"
+
   db: # database
     image: postgres
     environment:
