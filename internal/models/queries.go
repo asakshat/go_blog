@@ -96,38 +96,43 @@ func GetPostWithId(db *gorm.DB, postID uint) (PostDetails, error) {
 	return postDetails, nil
 }
 
-func GetAllPostByUserId(db *gorm.DB, userID uint) (PostDetails, error) {
-	var post Post
-	err := db.Preload("User").Preload("Comments.User").Where("user_id = ?", userID).Find(&post).Error
+func GetAllPostByUserId(db *gorm.DB, userID uint) ([]PostDetails, error) {
+	var posts []Post
+	err := db.Preload("User").Preload("Comments.User").Where("user_id = ?", userID).Find(&posts).Error
 	if err != nil {
-		return PostDetails{}, err
+		return nil, err
 	}
 
-	likeCount, err := GetLikeCount(db, post.PostID)
-	if err != nil {
-		return PostDetails{}, err
+	var postsDetails []PostDetails
+	for _, post := range posts {
+		likeCount, err := GetLikeCount(db, post.PostID)
+		if err != nil {
+			return nil, err
+		}
+
+		commentCount, err := GetCommentCount(db, post.PostID)
+		if err != nil {
+			return nil, err
+		}
+
+		var commentDetails []CommentDetails
+		for _, comment := range post.Comments {
+			commentDetails = append(commentDetails, CommentDetails{
+				CommentString:   comment.Comment,
+				CommentUsername: comment.User.Username,
+			})
+		}
+
+		postDetails := PostDetails{
+			Username:     post.User.Username,
+			Post:         post,
+			LikeCount:    likeCount,
+			CommentCount: commentCount,
+			Comments:     commentDetails,
+		}
+
+		postsDetails = append(postsDetails, postDetails)
 	}
 
-	commentCount, err := GetCommentCount(db, post.PostID)
-	if err != nil {
-		return PostDetails{}, err
-	}
-
-	var commentDetails []CommentDetails
-	for _, comment := range post.Comments {
-		commentDetails = append(commentDetails, CommentDetails{
-			CommentString:   comment.Comment,
-			CommentUsername: comment.User.Username,
-		})
-	}
-
-	postDetails := PostDetails{
-		Username:     post.User.Username,
-		Post:         post,
-		LikeCount:    likeCount,
-		CommentCount: commentCount,
-		Comments:     commentDetails,
-	}
-
-	return postDetails, nil
+	return postsDetails, nil
 }
