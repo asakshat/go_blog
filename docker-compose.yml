@@ -11,7 +11,7 @@ services:
       SECRET_KEY: "asd12edasd"
 
   db: # database
-    image: postgres
+    image: postgres:alpine
     environment:
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
