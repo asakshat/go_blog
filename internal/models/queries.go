@@ -75,7 +75,7 @@ func GetPostWithId(db *gorm.DB, postID uint) (PostDetails, error) {
 
 	postDetails := PostDetails{
 		Username:     post.User.Username,
-		Post:         post.User.Posts[0],
+		Post:         post,
 		LikeCount:    likeCount,
 		CommentCount: commentCount,
 	}
