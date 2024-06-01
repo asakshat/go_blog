@@ -36,6 +36,7 @@ type Comment struct {
 	ID        uint      `gorm:"primarykey" json:"id"`
 	PostID    uint      `gorm:"index;not null" json:"post_id"` // FK
 	UserID    uint      `gorm:"index;not null" json:"user_id"` // FK
+	User      User      `gorm:"foreignKey:UserID"`
 	Comment   string    `json:"comment"`
 	CreatedAt time.Time `gorm:"autoCreateTime" json:"created_at"`
 }
