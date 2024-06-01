@@ -95,3 +95,33 @@ func GetPostWithId(db *gorm.DB, postID uint) (PostDetails, error) {
 
 	return postDetails, nil
 }
+
+func GetAllPostByUserId(db *gorm.DB, userID uint) ([]PostDetails, error) {
+	var posts []Post
+	err := db.Preload("User").Where("user_id = ?", userID).Find(&posts).Error
+	if err != nil {
+		return nil, err
+	}
+
+	var postDetails []PostDetails
+	for _, post := range posts {
+		likeCount, err := GetLikeCount(db, post.PostID)
+		if err != nil {
+			return nil, err
+		}
+
+		commentCount, err := GetCommentCount(db, post.PostID)
+		if err != nil {
+			return nil, err
+		}
+
+		postDetails = append(postDetails, PostDetails{
+			Username:     post.User.Username,
+			Post:         post,
+			LikeCount:    likeCount,
+			CommentCount: commentCount,
+		})
+	}
+
+	return postDetails, nil
+}

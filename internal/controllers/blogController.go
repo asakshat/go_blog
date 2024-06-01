@@ -190,12 +190,12 @@ func GetAllPostByUserId(c *fiber.Ctx) error {
 		return handleError(c, fiber.StatusBadRequest, "Invalid user ID: "+err.Error())
 	}
 
-	var posts []models.Post
-	if err := db.DB.Where("user_id = ?", userID).Find(&posts).Error; err != nil {
-		return handleError(c, fiber.StatusInternalServerError, "Error getting posts: "+err.Error())
-	}
+	postdetails, err := models.GetAllPostByUserId(db.DB, uint(userID))
+	if err != nil {
+		return handleError(c, fiber.StatusInternalServerError, "Error getting post details: "+err.Error())
 
-	return c.JSON(posts)
+	}
+	return c.JSON(postdetails)
 }
 
 func GetPostWithIdHandler(c *fiber.Ctx) error {
